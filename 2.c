@@ -5,68 +5,53 @@
  *     struct ListNode *next;
  * };
  */
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) 
-{
-    int num1=0;
-    int smtg=0;
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
+ {
+    int sum=0;
+    int carry=0;
+    struct ListNode* result=malloc(sizeof(struct ListNode));
+    struct ListNode* tail=result;
 
-    while(1)
+ while(l1!=NULL||l2!=NULL||carry!=0)
+ {
+    
+    sum=carry;
+
+    if(l1!=NULL)
     {
-        num1=pow(10,smtg)*l1->val+num1;
-        smtg++;
-
-        if (!l1->next)
-        {
-            break;
-        }
-
+        sum=l1->val+sum;
         l1=l1->next;
     }
-
-    int num2=0;
-    smtg=0;
-
-    while(1)
+    if(l2!=NULL)
     {
-        num2=num2+pow(10,smtg)*l2->val;
-        smtg++;
-        
-
-        if (!l2->next)
-        {
-            break;
-        }
+        sum=l2->val+sum;
         l2=l2->next;
+
+    }
+    carry=0;
+
+    if(sum/10!=0)
+    {
+        carry=1;
     }
 
-    int sum=num1+num2;
+    struct ListNode* temp=malloc(sizeof(struct ListNode));
 
-    struct ListNode* Result=(struct ListNode*)malloc(sizeof(struct ListNode));
-    Result->val=sum%10;
-    sum=(sum-sum%10)/10;
-    Result->next=NULL;
-
-    struct ListNode* tail=Result;
-
-    while(1)
-    {
-        if(sum==0)
-    {
-        break;
-    }
-        struct ListNode* temp1=malloc(sizeof(struct ListNode));
-
-    temp1->val=sum%10;
-    sum=(sum-sum%10)/10;
-    temp1->next=NULL;
-    tail->next=temp1;
+    temp->val=sum%10;
+    temp->next=NULL;
+    tail->next=temp;
     tail=tail->next;
 
     
 
-    }
-    return Result;
 
+
+
+
+
+
+ }
+
+ return result->next;
     
-
 }
